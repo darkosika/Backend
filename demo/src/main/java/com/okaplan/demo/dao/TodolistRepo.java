@@ -1,4 +1,4 @@
-package com.okaplan.demo.repository;
+package com.okaplan.demo.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

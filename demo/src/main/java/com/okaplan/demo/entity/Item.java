@@ -1,12 +1,13 @@
 package com.okaplan.demo.entity;
 
 import java.security.Timestamp;
+import java.sql.Date;
+
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -25,16 +26,21 @@ public class Item {
     private String description;
     
     @Column(name="Createdate")
-    private Timestamp createdate;
+    private Date createdate;
     
     @Column(name="Deadline")
     private Timestamp deadline;
     
     @Column(name="Status")
-    private Timestamp status;
+    private String status;
+    
+    @Column(name="Dependecy")
+    private String item;
 	
 
-	public Item() {}
+	public Item() {
+		createdate=new Date(System.currentTimeMillis()); 
+	}
 
 	public int getId() {
 		return id;
@@ -60,11 +66,11 @@ public class Item {
 		this.description = description;
 	}
 
-	public Timestamp getCreatedate() {
+	public Date getCreatedate() {
 		return createdate;
 	}
 
-	public void setCreatedate(Timestamp createdate) {
+	public void setCreatedate(Date createdate) {
 		this.createdate = createdate;
 	}
 
@@ -76,12 +82,20 @@ public class Item {
 		this.deadline = deadline;
 	}
 
-	public Timestamp getStatus() {
+	public String getStatus() {
 		return status;
 	}
 
-	public void setStatus(Timestamp status) {
+	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public String getItem() {
+		return item;
+	}
+
+	public void setItem(String item) {
+		this.item = item;
 	}
 
 	
