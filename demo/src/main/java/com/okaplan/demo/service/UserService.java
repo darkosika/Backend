@@ -28,12 +28,16 @@ public class UserService {
 		return userRepo.findById(id);
 	}
 	
-	public boolean login(String username) {
+	public boolean login(String username,String password) {
 	//return	userRepo.existsById(id);
-	int userid=userRepo.findByUsername(username);
-	
+	Integer userid=userRepo.findByUsername(username);
+	if(userid==null) return false;
 	Optional<User> user=userRepo.findById(userid);
-	return user!=null ? true: false;
+	if(user.get().getFullName().equals(username)&& user.get().getPassword().equals(password))
+		return true;
+	else
+		return false;
+	//return user!=null ? true: false;
 	}
 	
 	

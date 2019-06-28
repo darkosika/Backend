@@ -1,5 +1,6 @@
 package com.okaplan.demo.rest;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -9,8 +10,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.okaplan.demo.entity.Item;
@@ -32,7 +35,19 @@ public class ApplicationRestController {
 	@Autowired
 	ItemService itemService;
 	
- 
+	
+	@PostMapping("/register")
+	public void createUser(@RequestBody User user) {
+		userService.createUser(user);
+		}
+	@PostMapping("/login")
+	public boolean login(@RequestParam String username,@RequestParam String password) {
+		return userService.login(username,password);
+		}
+	@GetMapping("/getUser/{id}")
+	public Optional<User> getUser(@PathVariable int id) {
+		return userService.findByid(id);
+	}
 	
 	@GetMapping("/getAllTodoList")
 	public List<Todolist> getAllTodoList() {
@@ -40,35 +55,32 @@ public class ApplicationRestController {
 	}
 	
 	@PostMapping("/createlist")
-	public void addEmployee(@RequestBody Todolist todolist) {
-		todoListService.saveTodoList(todolist);
-		}
-	
-	@PostMapping("/register")
-	public void createUser(@RequestBody User user) {
-		userService.createUser(user);
-		}
-	@PostMapping("/login/{username}")
-	public boolean login(@PathVariable String username) {
-		return userService.login(username);
-		}
-	@GetMapping("/getUser/{id}")
-	public Optional<User> getUser(@PathVariable int id) {
-		return userService.findByid(id);
+	public int createlist(@RequestParam int id ,@RequestBody Todolist todolist) {
+		return todoListService.saveTodoList(id,todolist);
+	}
+		
+	@DeleteMapping("deletelist/{id}")
+	public void deletelist(@PathVariable int id) {
+		todoListService.deletelist(id);
 	}
 	
 	@PostMapping("/createItem")
-	public void createItem(@RequestBody Item item) {
-		itemService.createItem(item);
+	public void createItem(@RequestParam Integer id,@RequestBody Item item) {
+		itemService.createItem(id,item);
 		}
 	@GetMapping("/getItems")
 	public List<Item> getItems() {
 		return itemService.findByAll();
 	}
 	
-	@DeleteMapping("deleteItem/{id}")
-	public void deleteItem(@PathVariable int id) {
-		itemService.DeleteItem(id);
+	@PutMapping("updateItem/")
+	public void deleteItem(@RequestParam int id,@RequestParam String status) {
+		itemService.UpdateItem(id, status);
+	}
+	
+	@PutMapping("updateItem/{id}")
+	public void Updateitem(@PathVariable int id) {
+		
 	}
 	
 }

@@ -2,6 +2,7 @@ package com.okaplan.demo.entity;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,7 +25,7 @@ public class User {
     @Column(name = "Password", length = 32)
     private String password;
     
-    @OneToMany
+    @OneToMany(cascade=CascadeType.ALL)
     private List<Todolist> todolist;
     
     public User() {}

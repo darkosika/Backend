@@ -9,5 +9,5 @@ import com.okaplan.demo.entity.User;
 @Repository
 public interface UserRepo extends JpaRepository<User, Integer> {
 	@Query("Select id from User where fullName= ?1")
-	int findByUsername(String username);
+	Integer findByUsername(String username);
 }
