@@ -37,8 +37,9 @@ public class ApplicationRestController {
 	
 	
 	@PostMapping("/register")
-	public void createUser(@RequestBody User user) {
+	public String createUser(@RequestBody User user) {
 		userService.createUser(user);
+		return "Successfull";
 		}
 	@PostMapping("/login")
 	public boolean login(@RequestParam String username,@RequestParam String password) {
